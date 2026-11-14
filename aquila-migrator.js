@@ -21,6 +21,19 @@
  *   Reports: writes migration-report.json summarising success/failure per record
  */
 
+// node /private/tmp/claude-501/-Users-olamidesoyoye-Herd-IdeEMR-Backend/e70aad5d-8894-4e9c-b5d4-b47712c87546/scratchpad/aquila-migrator.js \
+//   --url https://springmed.aquila.ng \
+//   --user springmed \
+//   --pass springmed \
+//   --finny-url http://ideemr-backend.test \
+//   --finny-origin http://localhost:3000 \
+//   --finny-user olamide5142@gmail.com \
+//   --finny-pass 60905420 \
+//   --tenant-id 01a07c9a-6452-71d9-b96d-0e3e662b8900 \
+//   --out ~/aquila-migration-full \
+//   --batch-size 50
+
+
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
@@ -567,8 +580,8 @@ function transformPatient(raw, tenantId) {
 
   return {
     // FHIR-aligned field names (RegisterPatientRequest schema)
-    family_name:   pi.surname    ?? stub.surname    ?? stub.lastName  ?? '',
-    given_name:    pi.firstName  ?? stub.firstName  ?? 'Unknown from Aquila',
+    family_name:   pi.surname    || stub.surname    || stub.lastName  || '',
+    given_name:    pi.firstName  || stub.firstName  || 'Unknown from Aquila',
     middle_name:   pi.otherName  ?? stub.otherName  ?? null,
     gender:        normalizeGender(pi.gender ?? stub.gender),
     // 1900-01-01 as sentinel for missing DOB — staff can update later
