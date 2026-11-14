@@ -1,0 +1,8 @@
+node_modules/
+
+# Migration output — raw patient data should not be committed
+migration-output/
+aquila-migration-*/
+raw/
+*.json
+!package.json
